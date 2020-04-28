@@ -1,6 +1,6 @@
 #!/bin/bash
 case $1 in
-  1)    #create VM
+  1)    #create VM#
         uvt-kvm create $2 release=bionic
         ;;
 
