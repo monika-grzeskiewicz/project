@@ -25,3 +25,5 @@ sleep 30
 #add interfaces to the bridge
 ./basis-script.sh 5 VM1 br-1 ${VM1_MAC}
 ./basis-script.sh 5 VM2 br-1 ${VM2_MAC}
+
+#abc
