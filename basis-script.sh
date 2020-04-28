@@ -4,7 +4,7 @@ case $1 in
         uvt-kvm create $2 release=bionic
         ;;
 
-  2)    #destroy VM
+  2)    #destroy VM#
         uvt-kvm destroy  $2 
         ;;
 
