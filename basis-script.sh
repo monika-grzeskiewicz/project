@@ -20,7 +20,7 @@ case $1 in
                   </ip>
                 </network>"              >> $2.xml
 
-        virsh net-define $2.xml
+	virsh net-define $2.xml
         virsh net-start $2
         virsh net-autostart $2
         ;;

@@ -13,11 +13,13 @@ VM3_IP=10.10.20.13
 #create 1. VM and interface
 ./basis-script.sh 1 VM1
 sleep 30
+#uvt-kvm wait
 ./basis-script.sh 4 VM1 7
 
 #create 2. VM (router) and interfaces
 ./basis-script.sh 1 VM2
 sleep 30
+#uvt-kvm wait
 ./basis-script.sh 4 VM2 7
 ./basis-script.sh 4 VM2 8
 
