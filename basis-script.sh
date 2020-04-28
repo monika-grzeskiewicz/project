@@ -39,6 +39,8 @@ case $1 in
         uvt-kvm ssh $2 "sudo echo auto ens$3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens$3 inet dhcp >> /etc/network/interfaces"
         fi
+
+	sudo service networking restart
         ;;
 
   5)    #attach interface to the bridge
