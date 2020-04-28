@@ -61,7 +61,7 @@ case $1 in
   8)    #enable ip forwarding
         uvt-kvm ssh $2 "sudo  chmod 777 /etc/sysctl.conf"
         uvt-kvm ssh $2 "sudo echo net.ipv4.ip_forward = 1 >> /etc/sysctl.conf"
-       	uvt-kvm ssh $2  sudo /etc/init.d/procps restart
+       	uvt-kvm ssh $2 "sudo /etc/init.d/procps restart"
         ;;
 
   9)    #delete bridge
