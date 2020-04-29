@@ -1,5 +1,4 @@
 #!/bin/bash
-
 VM1_MAC=08:00:00:00:00:01
 VM2_1_MAC=08:00:00:00:00:12
 VM2_3_MAC=08:00:00:00:00:32
@@ -9,6 +8,12 @@ VM1_IP=10.10.10.11
 VM2_1_IP=10.10.10.12
 VM2_3_IP=10.10.20.12
 VM3_IP=10.10.20.13
+
+sudo chmod +x basis-script.sh
+
+case $1 in 
+
+start)
 
 #create 1. VM and interface
 ./basis-script.sh 1 VM1
@@ -49,3 +54,16 @@ sleep 30
 ./basis-script.sh 5 VM2 br-2 ${VM2_3_MAC}
 ./basis-script.sh 5 VM3 br-2 ${VM3_MAC}
 
+;;
+
+stop)
+
+./basis-script.sh 2 VM1
+./basis-script.sh 2 VM2
+./basis-script.sh 2 VM3
+./basis-script.sh 9 br-1
+./basis-script.sh 9 br-2
+;;
+
+
+esac
