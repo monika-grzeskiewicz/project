@@ -1,4 +1,4 @@
-#!/bin/su root
+
 #!/bin/bash
 
 VM1_MAC=08:00:00:00:00:01
@@ -16,12 +16,12 @@ start)
 #create 1. VM and interface
 ./basis-script.sh 1 VM1
 sleep 30
-./basis-script.sh 4 VM1
+./basis-script.sh 4 VM1 7
 
 #create 2. VM and interface
 ./basis-script.sh 1 VM2
 sleep 30
-./basis-script.sh 4 VM2 
+./basis-script.sh 4 VM2 7 
 
 #create bridge
 ./basis-script.sh 3 br-1 10.10.80.1 255.255.255.0 10.10.80.10 10.10.80.80
