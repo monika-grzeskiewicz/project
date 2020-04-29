@@ -1,3 +1,4 @@
+#!/bin/su root
 #!/bin/bash
 
 VM1_MAC=08:00:00:00:00:01
@@ -6,6 +7,11 @@ VM1_IP=10.10.80.11
 VM2_IP=10.10.80.12
 
 sudo chmod +x basis-script.sh
+
+
+case $1 in
+
+start)
 
 #create 1. VM and interface
 ./basis-script.sh 1 VM1
@@ -28,4 +34,15 @@ sleep 30
 ./basis-script.sh 5 VM1 br-1 ${VM1_MAC}
 ./basis-script.sh 5 VM2 br-1 ${VM2_MAC}
 
-#abc
+;;
+
+stop)
+
+./basis-script.sh 2 VM1
+./basis-script.sh 2 VM2
+./basis-script.sh 9 br-1
+;;
+
+
+esac
+
