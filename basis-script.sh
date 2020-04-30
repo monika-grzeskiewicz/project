@@ -74,4 +74,8 @@ case $1 in
         sudo virsh net-undefine $2
         sudo rm $2.xml
         ;;
+
+  10)	#disable cloud-init's network configuration capabilities
+	uvt-kvm ssh $2 "sudo echo network: {config: disabled}  >> /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
+	;;
 esac
