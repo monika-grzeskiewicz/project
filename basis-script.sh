@@ -35,6 +35,9 @@ case $1 in
         uvt-kvm ssh $2 "sudo echo        >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo auto lo >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface lo inet loopback >> /etc/network/interfaces"
+	uvt-kvm ssh $2 "sudo echo auto ens3 >> /etc/network/interfaces"
+        uvt-kvm ssh $2 "sudo echo iface ens3 inet dhcp>> /etc/network/interfaces"
+
         else
         uvt-kvm ssh $2 "sudo echo auto ens$3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens$3 inet dhcp >> /etc/network/interfaces"
