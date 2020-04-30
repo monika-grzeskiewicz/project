@@ -54,8 +54,12 @@ sleep 30
 ./basis-script.sh 5 VM2 br-2 ${VM2_3_MAC}
 ./basis-script.sh 5 VM3 br-2 ${VM3_MAC}
 
-;;
+#disable  cloud-init's network configuration capabilities
+./basis-script.sh 10 VM1
+./basis-script.sh 10 VM2
+./basis-script.sh 10 VM3
 
+;;
 stop)
 
 ./basis-script.sh 2 VM1
