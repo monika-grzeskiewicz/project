@@ -9,9 +9,7 @@ VM2_1_IP=10.10.10.12
 VM2_3_IP=10.10.20.12
 VM3_IP=10.10.20.13
 
-sudo chmod +x basis-script.sh
-
-case $1 in 
+case $1 in
 
 start)
 
@@ -53,6 +51,10 @@ sleep 30
 ./basis-script.sh 5 VM2 br-1 ${VM2_1_MAC}
 ./basis-script.sh 5 VM2 br-2 ${VM2_3_MAC}
 ./basis-script.sh 5 VM3 br-2 ${VM3_MAC}
+
+#add routes
+./basis-script.sh 11 VM1 7 10.10.20.0 255.255.255.0 ${VM2_1_IP}
+./basis-script.sh 11 VM3 7 10.10.10.0 255.255.255.0 ${VM2_3_IP} 
 
 #disable  cloud-init's network configuration capabilities
 ./basis-script.sh 10 VM1

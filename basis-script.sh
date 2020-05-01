@@ -83,4 +83,9 @@ case $1 in
 	uvt-kvm ssh $2 "sudo echo network: {config: disabled}  >> /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo reboot"
 	;;
+
+  11)	#add route
+	uvt-kvm ssh $2 "sudo echo iface  ens$3 inet dhcp >> /etc/network/interfaces"
+	uvt-kvm ssh $2 "sudo echo    up route add -net $4 netmask $5 gw $6 >> /etc/network/interfaces"
+	;;
 esac
