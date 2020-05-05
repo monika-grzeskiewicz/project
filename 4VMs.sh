@@ -21,7 +21,7 @@ VM1_3_IP=10.10.20.13
 VM2_1_IP=10.10.10.21
 VM2_3_IP=10.10.30.23
 VM2_4_IP=10.10.40.24
-VM3_1_IP=10.10.20.25
+VM3_1_IP=10.10.20.31
 VM3_2_IP=10.10.30.32
 VM3_4_IP=10.10.50.34
 VM4_2_IP=10.10.40.42
@@ -48,20 +48,20 @@ sleep 30
 sleep 30
 ./basis-script.sh create_VM_interface VM2 7
 ./basis-script.sh create_VM_interface VM2 8
-./basis-script.sh create_VM_interface VM1 9
+./basis-script.sh create_VM_interface VM2 9
 
 ./basis-script.sh create_VM VM3
 #uvt-kvm wait VM3
 sleep 30
 ./basis-script.sh create_VM_interface VM3 7
 ./basis-script.sh create_VM_interface VM3 8
-./basis-script.sh create_VM_interface VM1 9
+./basis-script.sh create_VM_interface VM3 9
 
 ./basis-script.sh create_VM VM4
 sleep 30
 #uvt-kvm wait VM4
 ./basis-script.sh create_VM_interface VM4 7
-./basis-script.sh create_VM_interface VM1 8
+./basis-script.sh create_VM_interface VM4 8
 
 #	enable ip forwarding
 ./basis-script.sh enable_ip_forwarding VM2
