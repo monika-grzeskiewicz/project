@@ -102,9 +102,13 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_number} ${BRIDGE[i]} ${MAC[i]}
 done
 
-#add routes
-#./basis-script.sh add_route VM1 7 10.10.20.0 255.255.255.0 ${VM2_1_IP}
-#./basis-script.sh add_route VM3 7 10.10.10.0 255.255.255.0 ${VM2_3_Is
+#	add routes
+
+./basis-script.sh add_route VM1 7 10.10.40.0 255.255.255.0 ${VM2_1_IP}
+./basis-script.sh add_route VM2 7 10.10.40.0 255.255.255.0 ${VM3_2_IP}
+./basis-script.sh add_route VM3 7 10.10.10.0 255.255.255.0 ${VM2_3_IP}
+./basis-script.sh add_route VM4 7 10.10.10.0 255.255.255.0 ${VM3_4_IP}
+
 
 for i in {1..4}
 do
@@ -119,7 +123,7 @@ for i in {0..4}
 do
 if [ ${i} -lt 4 ]
 then
-a=i+1
+a=$(( $i + 1 ))
 ./basis-script.sh destroy_VM VM${a}
 fi
 ./basis-script.sh delete_bridge ${bridge[i]}
