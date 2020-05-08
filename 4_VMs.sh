@@ -31,24 +31,21 @@ start)
 
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
-sleep 30
+uvt-kvm wait VM1 --insecure
 ./basis-script.sh create_VM_interface VM1 7
 
 ./basis-script.sh create_VM VM2
-#uvt-kvm wait VM2
-sleep 30
+uvt-kvm wait VM2 --insecure
 ./basis-script.sh create_VM_interface VM2 7
 ./basis-script.sh create_VM_interface VM2 8
 
 ./basis-script.sh create_VM VM3
-#uvt-kvm wait VM3
-sleep 30
+uvt-kvm wait VM3 --insecure
 ./basis-script.sh create_VM_interface VM3 7
 ./basis-script.sh create_VM_interface VM3 8
 
 ./basis-script.sh create_VM VM4
-sleep 30
-#uvt-kvm wait VM4
+uvt-kvm wait VM4 --insecure
 ./basis-script.sh create_VM_interface VM4 7
 
 #       enable ip forwarding
