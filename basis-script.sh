@@ -57,12 +57,12 @@ case $1 in
         uvt-kvm ssh $2 "sudo echo iface lo inet loopback >> /etc/network/interfaces"
 	uvt-kvm ssh $2 "sudo echo auto ens3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens3 inet dhcp>> /etc/network/interfaces"
-
+        uvt-kvm ssh $2 "sudo echo up ip route change default via 192.168.122.1>> /etc/network/interfaces"
         else
         uvt-kvm ssh $2 "sudo echo auto ens$3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens$3 inet dhcp >> /etc/network/interfaces"
         fi
-
+	sudo /etc/init.d/networking restart
 	sudo service networking restart
         ;;
   #5
