@@ -10,7 +10,7 @@ VM3_4_MAC=08:00:00:00:00:34
 VM4_MAC=08:00:00:00:00:04
 
 			#interface
-VM1_IP=10.10.10.01	#7
+VM1_IP=10.10.10.11	#7
 VM2_1_IP=10.10.10.21	#7
 VM2_3_IP=10.10.20.23	#8
 VM3_2_IP=10.10.20.32	#7
@@ -99,16 +99,17 @@ done
 
 stop)
 
-for i in {0..4}
+for i in {1..4}
 do
+
 if [ ${i} -lt 4 ]
 then
-a=$(( $i + 1 ))
-./basis-script.sh destroy_VM VM${a}
+a=$(( $i - 1 ))
+./basis-script.sh delete_bridge ${bridge[a]}
 fi
-./basis-script.sh delete_bridge ${bridge[i]}
-done
 
+./basis-script.sh destroy_VM VM${i}
+done
 
 ;;
 esac
