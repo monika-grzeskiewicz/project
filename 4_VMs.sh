@@ -86,7 +86,7 @@ done
 
 #       add routes
 ./basis-script.sh add_route VM1 7 10.10.30.0 255.255.255.0 ${VM2_1_IP}
-./basis-script.sh add_route VM2 8 10.10.40.0 255.255.255.0 ${VM3_2_IP}
+./basis-script.sh add_route VM2 8 10.10.30.0 255.255.255.0 ${VM3_2_IP}
 ./basis-script.sh add_route VM4 7 10.10.10.0 255.255.255.0 ${VM3_4_IP}
 ./basis-script.sh add_route VM3 8 10.10.10.0 255.255.255.0 ${VM2_3_IP}
 
