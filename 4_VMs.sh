@@ -95,6 +95,8 @@ do
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
 done
 
+
+
 ;;
 
 stop)
