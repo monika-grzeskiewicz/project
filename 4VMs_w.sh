@@ -71,21 +71,18 @@ uvt-kvm wait VM4 --insecure
 #       create bridge between 3. and 4. VM
 ./basis-script.sh create_bridge br-4 10.10.40.1 255.255.255.0 10.10.40.10 10.10.40.80
 
-VM_nr=1
+VM_nr=0
 for i in {0..7}
 do
 
 ./basis-script.sh add_a_dhcp_static_host_entry_to_the_network ${BRIDGE[i]} ${MAC[i]} ${IP[i]}
-a=$(($i+1))
-a=$(($a%2))
 
+a=$(($i%2))
 if [ $a -eq 0 ]
 then
 VM_nr=$(( $VM_nr + 1 ))
 fi
-
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
-
 done
 
 for i in {1..4}
@@ -94,7 +91,8 @@ do
 done
 
 #       add routes
-#./basis-script.sh add_route VM1 7 10.10.30.0 255.255.255.0 ${VM2_1_IP}
+
+#./basis-script.sh add_route_weight VM1 7 10.10.0.0 ${VM2_1_IP}
 #./basis-script.sh add_route VM4 8 10.10.40.0 255.255.255.0 ${VM3_2_IP}
 #./basis-script.sh add_route VM4 7 10.10.10.0 255.255.255.0 ${VM3_4_IP}
 #./basis-script.sh add_route VM3 8 10.10.10.0 255.255.255.0 ${VM2_3_IP}
@@ -106,12 +104,8 @@ stop)
 for i in {1..4}
 do
 
-if [ ${i} -lt 4 ]
-then
 a=$(( $i - 1 ))
 ./basis-script.sh delete_bridge ${bridge[a]}
-fi
-
 ./basis-script.sh destroy_VM VM${i}
 done
 
