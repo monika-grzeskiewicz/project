@@ -108,12 +108,12 @@ case $1 in
 	;;
   #11
   add_route)
-	uvt-kvm ssh $2 "sudo echo up ip route add $4 $6 >> /etc/network/interfaces"
+	uvt-kvm ssh $2 "sudo echo up ip route add $3 via $4 >> /etc/network/interfaces"
 	;;
 
   #12
   add_route_weight)
-	uvt-kvm ssh $2 "up ip route add $3 \
+	uvt-kvm ssh $2 echo "up ip route add $3 \
 	nexthop via $4 dev ens$5 weight $6 \
 	nexthop via $7 dev ens$8 weight $9 >> /etc/network/interfaces"
        	;;
