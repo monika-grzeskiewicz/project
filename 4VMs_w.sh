@@ -92,10 +92,17 @@ done
 
 #       add routes
 
-#./basis-script.sh add_route_weight VM1 7 10.10.0.0 ${VM2_1_IP}
-#./basis-script.sh add_route VM4 8 10.10.40.0 255.255.255.0 ${VM3_2_IP}
-#./basis-script.sh add_route VM4 7 10.10.10.0 255.255.255.0 ${VM3_4_IP}
-#./basis-script.sh add_route VM3 8 10.10.10.0 255.255.255.0 ${VM2_3_IP}
+./basis-script.sh add_route_weight VM1 10.10.30.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
+./basis-script.sh add_route_weight VM1 10.10.40.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
+
+./basis-script.sh add_route VM2 10.10.20.0/24 ${VM1_2_IP}
+./basis-script.sh add_route VM2 10.10.40.0/24 ${VM2_4_IP}
+
+./basis-script.sh add_route VM3 10.10.30.0/24 ${VM4_3_IP}
+./basis-script.sh add_route VM3 10.10.10.0/24 ${VM1_3_IP}
+
+./basis-script.sh add_route_weight VM4 10.10.10.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
+./basis-script.sh add_route_weight VM4 10.10.20.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
 
 ;;
 

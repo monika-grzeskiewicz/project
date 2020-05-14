@@ -35,8 +35,8 @@ case $1 in
                         <ip address='$3' netmask='$4'>
                     <dhcp>
                       <range start='$5' end='$6'/>
-                    </dhcp>
-                  	</ip>
+            </dhcp>
+                  </ip>
                 </network>"              >> $2.xml
 
 	virsh net-define $2.xml
@@ -57,12 +57,12 @@ case $1 in
         uvt-kvm ssh $2 "sudo echo iface lo inet loopback >> /etc/network/interfaces"
 	uvt-kvm ssh $2 "sudo echo auto ens3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens3 inet dhcp>> /etc/network/interfaces"
-        uvt-kvm ssh $2 "sudo echo up ip route change default via 192.168.122.1>> /etc/network/interfaces"
+
         else
         uvt-kvm ssh $2 "sudo echo auto ens$3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens$3 inet dhcp >> /etc/network/interfaces"
         fi
-	sudo /etc/init.d/networking restart
+
 	sudo service networking restart
         ;;
   #5
@@ -108,13 +108,7 @@ case $1 in
 	;;
   #11
   add_route)
-	uvt-kvm ssh $2 "sudo echo up ip route add $4 $6 >> /etc/network/interfaces"
+	uvt-kvm ssh $2 "sudo echo iface  ens$3 inet dhcp >> /etc/network/interfaces"
+	uvt-kvm ssh $2 "sudo echo    up route add -net $4 netmask $5 gw $6 >> /etc/network/interfaces"
 	;;
-
-  #12
-  add_route_weight)
-	uvt-kvm ssh $2 "up ip route add $3 \
-	nexthop via $4 dev ens$5 weight $6 \
-	nexthop via $7 dev ens$8 weight $9 >> /etc/network/interfaces"
-       	;;
 esac
