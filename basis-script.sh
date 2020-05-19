@@ -90,6 +90,7 @@ case $1 in
        	uvt-kvm ssh $2 "sudo /etc/init.d/procps restart"
         ;;
   #9
+
   delete_bridge)
         sudo ifconfig $2 down
         sudo brctl delbr $2
@@ -121,9 +122,11 @@ case $1 in
   quagga)
 #	uvt-kvm ssh $2  sudo apt-get install quagga && sudo mkdir -p \
 #	/var/log/quagga && sudo chown quagga:quagga /var/log/quagga
-
-
+echo " "
+		uvt-kvm ssh $2 sudo apt-get update
+echo " "
          uvt-kvm ssh $2  sudo apt-get install quagga
+echo " "
          uvt-kvm ssh $2  sudo apt-get install quagga-doc
 	 uvt-kvm ssh $2  sudo chmod 777 /etc/sysctl.conf
          uvt-kvm ssh $2  echo "net.ipv4.ip_forward=1 >> /etc/sysctl.conf"
@@ -143,7 +146,7 @@ case $1 in
 #	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.default.mc_forwarding=1 | sudo tee -a /etc/sysctl.conf" 
 #         uvt-kvm ssh $2 sudo sysctl -p"
 #         uvt-kvm ssh $2 sudo touch  /etc/quagga/bgpd.conf"
-#         uvt-kvm ssh $2 sudo touch /etc/quagga/isisd.conf"
+#         Yuvt-kvm ssh $2 sudo touch /etc/quagga/isisd.conf"
 #         uvt-kvm ssh $2 sudo touch /etc/quagga/ospf6d.conf"
 #  	 uvt-kvm ssh $2 sudo touch /etc/quagga/bgpd.conf"
 #         uvt-kvm ssh $2 sudo touch /etc/quagga/pimd.conf"
@@ -173,3 +176,4 @@ case $1 in
 
 	;;
 esac
+ 

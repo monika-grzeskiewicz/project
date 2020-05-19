@@ -99,9 +99,26 @@ done
 
 for i in {1..4}
 do
+#sleep 60
+#./basis-script.sh quagga VM${i}
+
+
 ./basis-script.sh enable_ip_forwarding VM${i}
-./basis-script.sh quagga VM${i}
+
+#uvt-kvm wait VM${i} --insecure
+
+#./basis-script.sh quagga VM${i}
+
+#uvt-kvm wait VM${i} --insecure
+
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
+
+#uvt-kvm wait VM${i} --insecure
+
+sleep 30
+
+./basis-script.sh quagga VM${i}
+
 
 done
 
