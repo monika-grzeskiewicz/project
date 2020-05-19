@@ -113,8 +113,63 @@ case $1 in
 
   #12
   add_route_weight)
-	uvt-kvm ssh $2 echo "up ip route add $3 \
+	uvt-kvm ssh $2 "echo up ip route add $3 \
 	nexthop via $4 dev ens$5 weight $6 \
 	nexthop via $7 dev ens$8 weight $9 >> /etc/network/interfaces"
-       	;;
+	;;
+  #13
+  quagga)
+#	uvt-kvm ssh $2  sudo apt-get install quagga && sudo mkdir -p \
+#	/var/log/quagga && sudo chown quagga:quagga /var/log/quagga
+
+
+         uvt-kvm ssh $2  sudo apt-get install quagga
+         uvt-kvm ssh $2  sudo apt-get install quagga-doc
+	 uvt-kvm ssh $2  sudo chmod 777 /etc/sysctl.conf
+         uvt-kvm ssh $2  echo "net.ipv4.ip_forward=1 >> /etc/sysctl.conf"
+	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
+         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
+         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/bgpd.conf.sample /etc/quagga/bgpd.conf
+         uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/*.conf
+         uvt-kvm ssh $2  sudo chown quagga:quaggavty /etc/quagga/vtysh.conf
+         uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/*.conf
+         uvt-kvm ssh $2  sudo service zebra start
+         uvt-kvm ssh $2  sudo service bgpd start
+         uvt-kvm ssh $2  sudo systemctl enable zebra.service
+         uvt-kvm ssh $2  sudo systemctl enable bgpd.service
+
+
+#	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.all.forwarding=1 | sudo tee -a /etc/sysctl.conf "
+#	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.default.mc_forwarding=1 | sudo tee -a /etc/sysctl.conf" 
+#         uvt-kvm ssh $2 sudo sysctl -p"
+#         uvt-kvm ssh $2 sudo touch  /etc/quagga/bgpd.conf"
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/isisd.conf"
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/ospf6d.conf"
+#  	 uvt-kvm ssh $2 sudo touch /etc/quagga/bgpd.conf"
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/pimd.conf"
+#
+#	 uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/ripd.conf && sudo chmod 640 /etc/quagga/ripd.conf 
+#
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/ripd.conf"
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/ripngd.conf"
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/vtysh.conf"
+#         uvt-kvm ssh $2 sudo touch /etc/quagga/zebra.conf"
+
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/bgpd.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/isisd.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/ospf6d.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/ospfd.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/pimd.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/ripd.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/ripngd.service 
+#        uvt-kvm ssh $2   sudo ln -st /etc/systemd/system/multi-user.target.wants /lib/systemd/system/zebra.service 
+#        uvt-kvm ssh $2   systemctl start ospfd
+#        #uvt-kvm ssh $2
+#        https://ixnfo.com
+#
+#
+#
+#        uvt-kvm ssh $2 sudo systemctl daemon-reload
+
+	;;
 esac

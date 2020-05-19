@@ -36,6 +36,7 @@ start)
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
 uvt-kvm wait VM1 --insecure
+uvt-kvm ssh VM1 sudo ufw disable 
 ./basis-script.sh create_VM_interface VM1 7
 ./basis-script.sh create_VM_interface VM1 8
 
@@ -54,10 +55,6 @@ uvt-kvm wait VM3 --insecure
 uvt-kvm wait VM4 --insecure
 ./basis-script.sh create_VM_interface VM4 7
 ./basis-script.sh create_VM_interface VM4 8
-
-#       enable ip forwarding
-./basis-script.sh enable_ip_forwarding VM2
-./basis-script.sh enable_ip_forwarding VM3
 
 #       create bridge between 1. and 2. VM
 ./basis-script.sh create_bridge br-1 10.10.10.1 255.255.255.0 10.10.10.10 10.10.10.80
@@ -102,7 +99,10 @@ done
 
 for i in {1..4}
 do
+./basis-script.sh enable_ip_forwarding VM${i}
+./basis-script.sh quagga VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
+
 done
 
 ;;
@@ -115,6 +115,7 @@ a=$(( $i - 1 ))
 ./basis-script.sh delete_bridge ${bridge[a]}
 ./basis-script.sh destroy_VM VM${i}
 done
+
 
 ;;
 esac
