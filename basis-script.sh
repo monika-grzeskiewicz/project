@@ -123,13 +123,27 @@ case $1 in
 #	uvt-kvm ssh $2  sudo apt-get install quagga && sudo mkdir -p \
 #	/var/log/quagga && sudo chown quagga:quagga /var/log/quagga
 echo " "
-		uvt-kvm ssh $2 sudo apt-get update
+	 uvt-kvm ssh $2 sudo apt-get update
 echo " "
          uvt-kvm ssh $2  sudo apt-get install quagga
 echo " "
          uvt-kvm ssh $2  sudo apt-get install quagga-doc
 	 uvt-kvm ssh $2  sudo chmod 777 /etc/sysctl.conf
          uvt-kvm ssh $2  echo "net.ipv4.ip_forward=1 >> /etc/sysctl.conf"
+
+         uvt-kvm ssh $2 sudo touch /etc/quagga/ripd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/ripngd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/vtysh.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/zebra.conf
+	 uvt-kvm ssh $2 sudo touch /etc/quagga/bgpd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/isisd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/ospf6d.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/bgpd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/pimd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/babeld.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/debian.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/ospfd.conf
+
 	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/bgpd.conf.sample /etc/quagga/bgpd.conf
