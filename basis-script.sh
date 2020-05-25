@@ -125,7 +125,7 @@ case $1 in
 echo " "
 	 uvt-kvm ssh $2 sudo apt-get update
 echo " "
-         uvt-kvm ssh $2  sudo apt-get install quagga
+         uvt-kvm ssh $2  "sudo apt-get install --assume-yes quagga"
 echo " "
          uvt-kvm ssh $2  sudo apt-get install quagga-doc
 	 uvt-kvm ssh $2  sudo chmod 777 /etc/sysctl.conf
@@ -147,17 +147,23 @@ echo " "
 	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/bgpd.conf.sample /etc/quagga/bgpd.conf
+
+
+	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
+         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
+         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/bgpd.conf.sample /etc/quagga/bgpd.conf
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/*.conf
          uvt-kvm ssh $2  sudo chown quagga:quaggavty /etc/quagga/vtysh.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/*.conf
-         uvt-kvm ssh $2  sudo service zebra start
-         uvt-kvm ssh $2  sudo service bgpd start
-         uvt-kvm ssh $2  sudo systemctl enable zebra.service
-         uvt-kvm ssh $2  sudo systemctl enable bgpd.service
+         uvt-kvm ssh $2  "sudo service zebra start"
+         uvt-kvm ssh $2  "sudo service bgpd start"
+         uvt-kvm ssh $2  "sudo systemctl start zebra.service"
+         uvt-kvm ssh $2  "sudo systemctl enable zebra.service"
+         uvt-kvm ssh $2  "sudo systemctl enable bgpd.service"
 
 
 #	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.all.forwarding=1 | sudo tee -a /etc/sysctl.conf "
-#	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.default.mc_forwarding=1 | sudo tee -a /etc/sysctl.conf" 
+#	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.default.mc_forwarding=1 | sudo tee -a /etc/sysctl.conf"
 #         uvt-kvm ssh $2 sudo sysctl -p"
 #         uvt-kvm ssh $2 sudo touch  /etc/quagga/bgpd.conf"
 #         Yuvt-kvm ssh $2 sudo touch /etc/quagga/isisd.conf"
