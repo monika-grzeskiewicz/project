@@ -11,7 +11,8 @@
 #	9	delete_bridge
 #	10	disable_cloud-init's_network_configuration_capabilities
 #	11	add_route
-
+#	12	add_route_weight
+#	13	quagga
 
 case $1 in
 
@@ -62,8 +63,6 @@ case $1 in
         uvt-kvm ssh $2 "sudo echo auto ens$3 >> /etc/network/interfaces"
         uvt-kvm ssh $2 "sudo echo iface ens$3 inet dhcp >> /etc/network/interfaces"
         fi
-	sudo /etc/init.d/networking restart
-	sudo service networking restart
         ;;
   #5
   attach_interface_to_the_bridge)
@@ -148,18 +147,11 @@ echo " "
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/bgpd.conf.sample /etc/quagga/bgpd.conf
 
-
-	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
-         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
-         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/bgpd.conf.sample /etc/quagga/bgpd.conf
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/*.conf
          uvt-kvm ssh $2  sudo chown quagga:quaggavty /etc/quagga/vtysh.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/*.conf
          uvt-kvm ssh $2  "sudo service zebra start"
-         uvt-kvm ssh $2  "sudo service bgpd start"
-         uvt-kvm ssh $2  "sudo systemctl start zebra.service"
-         uvt-kvm ssh $2  "sudo systemctl enable zebra.service"
-         uvt-kvm ssh $2  "sudo systemctl enable bgpd.service"
+	 uvt-kvm ssh $2  "sudo service bgpd start"
 
 
 #	 uvt-kvm ssh $2  sudo echo net.ipv4.conf.all.forwarding=1 | sudo tee -a /etc/sysctl.conf "
