@@ -140,7 +140,7 @@ case $1 in
          uvt-kvm ssh $2  sudo chown quagga:quaggavty /etc/quagga/vtysh.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/*.conf
          uvt-kvm ssh $2  "sudo service zebra start"
-
+	 uvt-kvm ssh $2  "sudo systemctl restart ospfd"
 	;;
 esac
 
