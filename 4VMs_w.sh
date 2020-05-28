@@ -36,7 +36,7 @@ start)
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
 uvt-kvm wait VM1 --insecure
-uvt-kvm ssh VM1 sudo ufw disable 
+#uvt-kvm ssh VM1 sudo ufw disable 
 ./basis-script.sh create_VM_interface VM1 7
 ./basis-script.sh create_VM_interface VM1 8
 
@@ -71,17 +71,17 @@ uvt-kvm wait VM4 --insecure
 
 #       add routes
 
-./basis-script.sh add_route_weight VM1 10.10.30.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
-./basis-script.sh add_route_weight VM1 10.10.40.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
+#./basis-script.sh add_route_weight VM1 10.10.30.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
+#./basis-script.sh add_route_weight VM1 10.10.40.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
 
-./basis-script.sh add_route VM2 10.10.20.0/24 ${VM1_2_IP}
-./basis-script.sh add_route VM2 10.10.40.0/24 ${VM2_4_IP}
+#./basis-script.sh add_route VM2 10.10.20.0/24 ${VM1_2_IP}
+#./basis-script.sh add_route VM2 10.10.40.0/24 ${VM2_4_IP}
 
-./basis-script.sh add_route VM3 10.10.30.0/24 ${VM4_3_IP}
-./basis-script.sh add_route VM3 10.10.10.0/24 ${VM1_3_IP}
+#./basis-script.sh add_route VM3 10.10.30.0/24 ${VM4_3_IP}
+#./basis-script.sh add_route VM3 10.10.10.0/24 ${VM1_3_IP}
 
-./basis-script.sh add_route_weight VM4 10.10.10.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
-./basis-script.sh add_route_weight VM4 10.10.20.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
+#./basis-script.sh add_route_weight VM4 10.10.10.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
+#./basis-script.sh add_route_weight VM4 10.10.20.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
 
 VM_nr=0
 for i in {0..7}
