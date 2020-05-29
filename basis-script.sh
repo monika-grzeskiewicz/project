@@ -133,6 +133,7 @@ case $1 in
          uvt-kvm ssh $2 sudo touch /etc/quagga/vtysh.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/zebra.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/ospfd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/daemons
 
 	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
          uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
@@ -142,12 +143,45 @@ case $1 in
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/vtysh.conf
 
          uvt-kvm ssh $2  sudo chown quagga:quaggavty /etc/quagga/vtysh.conf
-         uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/ospfd.conf
-         uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/zebra.conf
+         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/ospfd.conf
+         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/vtysh.conf
+         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/daemons
 
-         uvt-kvm ssh $2  "sudo service zebra start"
-	 uvt-kvm ssh $2  "sudo systemctl restart ospfd"
-	;;
+	uvt-kvm ssh $2 sudo printf "'
+	zebra=yes
+	bgpd=no
+	ospfd=yes
+	ospf6d=no
+	ripd=no
+	ripngd=no	'>> /etc/quagga/daemons"
+
+uvt-kvm ssh $2 sudo printf "'
+interface ens3
+interface ens7
+interface ens8
+interface lo
+router ospf
+ passive-interface ens3
+ network $3/24 area 0.0.0.0
+ network $4/24 area 0.0.0.0
+ line vty '>> /etc/quagga/ospfd.conf"
+
+uvt-kvm ssh $2 "sudo printf   '
+interface ens7
+ ip address $5/24
+ ipv6 nd suppress-ra
+interface ens8
+ ip address $6/24
+ ipv6 nd suppress-ra
+interface lo
+ip forwarding
+line vty ' >>  /etc/quagga/zebra.conf"
+
+
+        uvt-kvm ssh $2  "sudo systemctl restart ospfd"
+        uvt-kvm ssh $2  "sudo systemctl restart zebra"
+
+;;
 esac
 
