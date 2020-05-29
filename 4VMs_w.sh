@@ -71,17 +71,17 @@ uvt-kvm wait VM4 --insecure
 
 #       add routes
 
-#./basis-script.sh add_route_weight VM1 10.10.30.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
-#./basis-script.sh add_route_weight VM1 10.10.40.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
+#./basis-script.sh add_route_weight VM1 10.10.30.0 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
+#./basis-script.sh add_route_weight VM1 10.10.40.0 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
 
-#./basis-script.sh add_route VM2 10.10.20.0/24 ${VM1_2_IP}
-#./basis-script.sh add_route VM2 10.10.40.0/24 ${VM2_4_IP}
+#./basis-script.sh add_route VM2 10.10.20.0 ${VM1_2_IP}
+#./basis-script.sh add_route VM2 10.10.40.0 ${VM2_4_IP}
 
-#./basis-script.sh add_route VM3 10.10.30.0/24 ${VM4_3_IP}
-#./basis-script.sh add_route VM3 10.10.10.0/24 ${VM1_3_IP}
+#./basis-script.sh add_route VM3 10.10.30.0 ${VM4_3_IP}
+#./basis-script.sh add_route VM3 10.10.10.0 ${VM1_3_IP}
 
-#./basis-script.sh add_route_weight VM4 10.10.10.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
-#./basis-script.sh add_route_weight VM4 10.10.20.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
+#./basis-script.sh add_route_weight VM4 10.10.10.0 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
+#./basis-script.sh add_route_weight VM4 10.10.20.0 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
 
 VM_nr=0
 for i in {0..7}
@@ -97,10 +97,11 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
-./basis-script.sh quagga VM1 10.10.10.0/24 10.10.20.0/24 10.10.10.12 10.10.20.13
-./basis-script.sh quagga VM2 10.10.10.0/24 10.10.30.0/24 10.10.20.21 10.10.30.24
-./basis-script.sh quagga VM3 10.10.20.0/24 10.10.40.0/24 10.10.20.31 10.10.40.34
-./basis-script.sh quagga VM4 10.10.30.0/24 10.10.40.0/24 10.10.30.42 10.10.40.43
+
+#./basis-script.sh quagga VM1 10.10.10.0 10.10.20.0 10.10.10.12 10.10.20.13
+#./basis-script.sh quagga VM2 10.10.10.0 10.10.30.0 10.10.20.21 10.10.30.24
+#./basis-script.sh quagga VM3 10.10.20.0 10.10.40.0 10.10.20.31 10.10.40.34
+#./basis-script.sh quagga VM4 10.10.30.0 10.10.40.0 10.10.30.42 10.10.40.43
 
 
 for i in {1..4}
@@ -110,9 +111,16 @@ do
 #uvt-kvm wait VM${i} --insecure
 #sleep 30
 #./basis-script.sh quagga VM${i}
+done
+
+sleep 30
+
+./basis-script.sh quagga VM1 10.10.10.0 10.10.20.0 10.10.10.12 10.10.20.13
+./basis-script.sh quagga VM2 10.10.10.0 10.10.30.0 10.10.20.21 10.10.30.24
+./basis-script.sh quagga VM3 10.10.20.0 10.10.40.0 10.10.20.31 10.10.40.34
+./basis-script.sh quagga VM4 10.10.30.0 10.10.40.0 10.10.30.42 10.10.40.43
 
 sudo service networking restart
-done
 ;;
 
 stop)
