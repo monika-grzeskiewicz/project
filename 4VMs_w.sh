@@ -97,13 +97,19 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
+./basis-script.sh quagga VM1 10.10.10.0/24 10.10.20.0/24 10.10.10.12 10.10.20.13
+./basis-script.sh quagga VM2 10.10.10.0/24 10.10.30.0/24 10.10.20.21 10.10.30.24
+./basis-script.sh quagga VM3 10.10.20.0/24 10.10.40.0/24 10.10.20.31 10.10.40.34
+./basis-script.sh quagga VM4 10.10.30.0/24 10.10.40.0/24 10.10.30.42 10.10.40.43
+
+
 for i in {1..4}
 do
 ./basis-script.sh enable_ip_forwarding VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
 #uvt-kvm wait VM${i} --insecure
-sleep 30
-./basis-script.sh quagga VM${i}
+#sleep 30
+#./basis-script.sh quagga VM${i}
 
 sudo service networking restart
 done
