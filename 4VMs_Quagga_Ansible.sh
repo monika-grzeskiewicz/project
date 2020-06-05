@@ -79,6 +79,15 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
+
+
+  ### ANSIBLE ###
+
+
+ansible-playbook -i inventory.yaml ./playbooks/install_quagga.yaml
+
+
+
 ;;
 
 stop)
