@@ -100,7 +100,7 @@ case $1 in
   #10
   disable_cloud-inits_network_configuration_capabilities)
 	uvt-kvm ssh $2 "sudo chmod 777 /etc/netplan/50-cloud-init.yaml"
-	uvt-kvm ssh $2 "sudo echo .disable >> /etc/netplan/50-cloud-init.yaml"
+	uvt-kvm ssh $2 "sudo echo '.disable' >> /etc/netplan/50-cloud-init.yaml"
 	uvt-kvm ssh $2 "sudo touch /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo chmod 777 /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo echo network: {config: disabled}  >> /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
@@ -133,20 +133,28 @@ case $1 in
          uvt-kvm ssh $2 sudo touch /etc/quagga/vtysh.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/zebra.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/ospfd.conf
+         uvt-kvm ssh $2 sudo touch /etc/quagga/daemons
 
 	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
-         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
+#         uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/zebra.conf.sample /etc/quagga/zebra.conf
 
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/ospfd.conf
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/vtysh.conf
 
          uvt-kvm ssh $2  sudo chown quagga:quaggavty /etc/quagga/vtysh.conf
-         uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/ospfd.conf
-         uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/zebra.conf
+         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/ospfd.conf
+         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/vtysh.conf
+<<<<<<< HEAD
 
 	 
+=======
+         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/daemons
+         uvt-kvm ssh $2  sudo chmod 777 /etc/environment
+         uvt-kvm ssh $2  sudo chmod 777 /etc/bash.bashrc
+
+>>>>>>> 4VMs_Quagga_Ansible
 	uvt-kvm ssh $2 sudo printf "'
 	zebra=yes
 	bgpd=no
@@ -182,6 +190,10 @@ line vty ' >>  /etc/quagga/zebra.conf"
 
       uvt-kvm ssh $2  "sudo service zebra start"
       uvt-kvm ssh $2  "sudo service ospfd start"
+<<<<<<< HEAD
 	;;
+=======
+;;
+>>>>>>> 4VMs_Quagga_Ansible
 esac
 
