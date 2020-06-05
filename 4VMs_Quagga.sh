@@ -36,7 +36,6 @@ start)
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
 uvt-kvm wait VM1 --insecure
-#uvt-kvm ssh VM1 sudo ufw disable 
 ./basis-script.sh create_VM_interface VM1 7
 ./basis-script.sh create_VM_interface VM1 8
 
@@ -68,21 +67,6 @@ uvt-kvm wait VM4 --insecure
 #       create bridge between 3. and 4. VM
 ./basis-script.sh create_bridge br-4 10.10.40.1 255.255.255.0 10.10.40.10 10.10.40.80
 
-
-#       add routes
-
-#./basis-script.sh add_route_weight VM1 10.10.30.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
-#./basis-script.sh add_route_weight VM1 10.10.40.0/24 ${VM2_1_IP} 7 10 ${VM3_1_IP} 8 1
-
-#./basis-script.sh add_route VM2 10.10.20.0/24 ${VM1_2_IP}
-#./basis-script.sh add_route VM2 10.10.40.0/24 ${VM2_4_IP}
-
-#./basis-script.sh add_route VM3 10.10.30.0/24 ${VM4_3_IP}
-#./basis-script.sh add_route VM3 10.10.10.0/24 ${VM1_3_IP}
-
-#./basis-script.sh add_route_weight VM4 10.10.10.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
-#./basis-script.sh add_route_weight VM4 10.10.20.0/24 ${VM2_4_IP} 7 10 ${VM3_4_IP} 8 1
-
 VM_nr=0
 for i in {0..7}
 do
@@ -101,7 +85,7 @@ for i in {1..4}
 do
 ./basis-script.sh enable_ip_forwarding VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
-#uvt-kvm wait VM${i} --insecure
+
 sleep 30
 ./basis-script.sh quagga VM${i}
 
