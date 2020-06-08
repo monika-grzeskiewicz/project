@@ -1,0 +1,10 @@
+interface ens3
+interface ens7
+interface ens8
+interface lo
+router ospf
+ passive-interface ens3
+ network 10.10.20.0/24 area 0.0.0.0
+ network 10.10.40.0/24 area 0.0.0.0
+ line vty
+

@@ -1,0 +1,12 @@
+
+interface ens7
+ ip address 10.10.30.42/24
+ ipv6 nd suppress-ra
+interface ens8
+ ip address 10.10.40.43/24
+ ipv6 nd suppress-ra
+interface lo
+ip forwarding
+line vty
+
+
