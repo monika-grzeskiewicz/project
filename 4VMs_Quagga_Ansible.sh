@@ -28,10 +28,21 @@ BRIDGE=(br-1 br-2 br-1 br-3 br-2 br-4 br-3 br-4)
 
 bridge=(br-1 br-2 br-3 br-4)
 
-
 case $1 in
 
 start)
+
+#       create bridge between 1. and 2. VM
+./basis-script.sh create_bridge br-1 10.10.10.1 255.255.255.0 10.10.10.10 10.10.10.80
+
+#       create bridge between 1. and 3. VM
+./basis-script.sh create_bridge br-2 10.10.20.1 255.255.255.0 10.10.20.10 10.10.20.80
+
+#       create bridge between 2. and 4. VM
+./basis-script.sh create_bridge br-3 10.10.30.1 255.255.255.0 10.10.30.10 10.10.30.80
+
+#       create bridge between 3. and 4. VM
+./basis-script.sh create_bridge br-4 10.10.40.1 255.255.255.0 10.10.40.10 10.10.40.80
 
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
@@ -49,23 +60,10 @@ uvt-kvm wait VM3 --insecure
 ./basis-script.sh create_VM_interface VM3 7
 ./basis-script.sh create_VM_interface VM3 8
 
-
 ./basis-script.sh create_VM VM4
 uvt-kvm wait VM4 --insecure
 ./basis-script.sh create_VM_interface VM4 7
 ./basis-script.sh create_VM_interface VM4 8
-
-#       create bridge between 1. and 2. VM
-./basis-script.sh create_bridge br-1 10.10.10.1 255.255.255.0 10.10.10.10 10.10.10.80
-
-#       create bridge between 1. and 3. VM
-./basis-script.sh create_bridge br-2 10.10.20.1 255.255.255.0 10.10.20.10 10.10.20.80
-
-#       create bridge between 2. and 4. VM
-./basis-script.sh create_bridge br-3 10.10.30.1 255.255.255.0 10.10.30.10 10.10.30.80
-
-#       create bridge between 3. and 4. VM
-./basis-script.sh create_bridge br-4 10.10.40.1 255.255.255.0 10.10.40.10 10.10.40.80
 
 VM_nr=0
 for i in {0..7}
@@ -79,19 +77,23 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
+<<<<<<< HEAD
 <<<<<<< HEAD:4VMs.sh
 for i in {1..4}
 do
 ./basis-script.sh enable_ip_forwarding VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
-#uvt-kvm wait VM${i} --insecure
-#sleep 30
-#./basis-script.sh quagga VM${i}
-
-#sudo service networking restart
 done
 =======
 >>>>>>> 4VMs_Quagga_Ansible:4VMs_Quagga_Ansible.sh
+=======
+### ANSIBLE ###
+
+ansible-playbook -i inventory.yaml ./playbooks/install_quagga.yaml
+
+
+
+>>>>>>> 4VMs_Quagga_Ansible
 ;;
 
 stop)
@@ -102,9 +104,19 @@ do
 a=$(( $i - 1 ))
 ./basis-script.sh delete_bridge ${bridge[a]}
 ./basis-script.sh destroy_VM VM${i}
+
 done
-
-
 ;;
+
+test-start)
+
+uvt-kvm ssh VM2 "sudo ifdown ens7"
+;;
+
+test-stop)
+
+uvt-kvm ssh VM2 "sudo ifup ens7"
+;;
+
 esac
 
