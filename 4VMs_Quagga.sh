@@ -86,11 +86,21 @@ do
 ./basis-script.sh enable_ip_forwarding VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
 
+#sleep 30
+#./basis-script.sh quagga VM${i}
+
+#sudo service networking restart
+done
+
 sleep 30
-./basis-script.sh quagga VM${i}
+
+./basis-script.sh quagga VM1 10.10.10.0 10.10.20.0 10.10.10.12 10.10.20.13
+./basis-script.sh quagga VM2 10.10.10.0 10.10.30.0 10.10.10.21 10.10.30.24
+./basis-script.sh quagga VM3 10.10.20.0 10.10.40.0 10.10.20.31 10.10.40.34
+./basis-script.sh quagga VM4 10.10.30.0 10.10.40.0 10.10.30.42 10.10.40.43
 
 sudo service networking restart
-done
+
 ;;
 
 stop)
