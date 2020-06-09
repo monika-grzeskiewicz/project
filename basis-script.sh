@@ -121,7 +121,6 @@ case $1 in
   quagga)
 
 	 echo " "
-#	 uvt-kvm ssh $2  sudo DEBIAN_FRONTEND=noninteractive apt-get autoremove
 	 uvt-kvm ssh $2 "sudo apt-get update"
 	 echo " "
          uvt-kvm ssh $2 "sudo apt-get install --assume-yes quagga"

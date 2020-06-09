@@ -86,10 +86,6 @@ do
 ./basis-script.sh enable_ip_forwarding VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
 
-#sleep 30
-#./basis-script.sh quagga VM${i}
-
-#sudo service networking restart
 done
 
 sleep 30
@@ -112,8 +108,13 @@ a=$(( $i - 1 ))
 ./basis-script.sh delete_bridge ${bridge[a]}
 ./basis-script.sh destroy_VM VM${i}
 done
+;;
 
-
+test-start)
+uvt-kvm ssh VM2 "sudo ifdown ens7"
+;;
+test-stop)
+uvt-kvm ssh VM2 "sudo ifup ens7"
 ;;
 esac
 
