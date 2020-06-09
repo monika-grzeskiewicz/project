@@ -144,19 +144,8 @@ case $1 in
          uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/vtysh.conf
 
-         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/daemons
          uvt-kvm ssh $2  sudo chmod 777 /etc/environment
          uvt-kvm ssh $2  sudo chmod 777 /etc/bash.bashrc
-
-
-	uvt-kvm ssh $2 sudo printf "'
-	zebra=yes
-	bgpd=no
-	ospfd=yes
-	ospf6d=no
-	ripd=no
-	ripngd=no	'>> /etc/quagga/daemons"
-
 
 uvt-kvm ssh $2 "echo 'YSH_PAGER=more' >> /etc/environment"
 uvt-kvm ssh $2 "echo 'export VTYSH_PAGER=more' >> /etc/bash.bashrc"
