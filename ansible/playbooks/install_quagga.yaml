@@ -47,11 +47,15 @@
   tasks:
   - name: line insert
     lineinfile:
-      path: /etc/netplan/50-cloud-init.yaml
+      path: '/etc/netplan/50-cloud-init.yaml'
       line: '.disable'
+  - name: Touch a file
+    file:
+      path: '/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg'
+      state: touch
   - name: line insert
     lineinfile:
-      path: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+      path: '/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg'
       line: 'network: {config: disabled} '
   - name: Start ospfd
     service:
@@ -61,9 +65,5 @@
     service:
       name: zebra
       state: started
-  - name: service networking restart
-    service:
-      name: service networking
-      state: restarted
   - name: reboot the machine
     reboot:
