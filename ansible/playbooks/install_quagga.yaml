@@ -14,11 +14,6 @@
       path: /etc/environment
       line: 'YSH_PAGER=more'
       insertbefore: BOF
-  - name: line insert
-    lineinfile:
-      path: /etc//bash.bashrc
-      line: 'export VTYSH_PAGER=more'
-      insertbefore: BOF
 
 - hosts: VM1
   remote_user: root
