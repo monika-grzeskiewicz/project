@@ -77,11 +77,17 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
+<<<<<<< HEAD
 for i in {1..4}
 do
 ./basis-script.sh enable_ip_forwarding VM${i}
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
 done
+=======
+### ANSIBLE ###
+
+ansible-playbook ./playbooks/install_quagga.yaml
+>>>>>>> 4VMs_Quagga_Ansible
 
 ###ANSIBLE ###
 
