@@ -77,7 +77,6 @@ fi
 ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
-<<<<<<< HEAD
 for i in {1..4}
 do
 ./basis-script.sh enable_ip_forwarding VM${i}
