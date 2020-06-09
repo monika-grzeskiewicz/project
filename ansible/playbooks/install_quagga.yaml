@@ -17,34 +17,10 @@
       path: /etc//bash.bashrc
       line: 'export VTYSH_PAGER=more'
       insertbefore: BOF
-
-- hosts: VM1
-  tasks:
-  - name: zebra
-    template: src=zebra_VM1.txt dest=/etc/quagga/zebra.conf
-  - name: ospfd
-    template: src=ospfd_VM1.txt dest=/etc/quagga/ospfd.conf
-- hosts: VM2
-  tasks:
-  - name: zebra
-    template: src=zebra_VM2.txt dest=/etc/quagga/zebra.conf
-  - name: ospfd
-    template: src=ospfd_VM2.txt dest=/etc/quagga/ospfd.conf
-- hosts: VM3
-  tasks:
-  - name: zebra
-    template: src=zebra_VM3.txt dest=/etc/quagga/zebra.conf
-  - name: ospfd
-    template: src=ospfd_VM3.txt dest=/etc/quagga/ospfd.conf
-- hosts: VM4
-  tasks:
-  - name: zebra
-    template: src=zebra_VM4.txt dest=/etc/quagga/zebra.conf
-  - name: ospfd
-    template: src=ospfd_VM4.txt dest=/etc/quagga/ospfd.conf
-
-- hosts: all  
-  tasks:
+  - name: create /etc/quagga/zebra.conf
+    template: src="{{local_zebra_path}}" dest=/etc/quagga/zebra.conf
+  - name: create /etc/quagga/ospfd.conf
+    template: src="{{local_ospfd_path}}" dest=/etc/quagga/ospfd.conf
   - name: line insert
     lineinfile:
       path: '/etc/netplan/50-cloud-init.yaml'
