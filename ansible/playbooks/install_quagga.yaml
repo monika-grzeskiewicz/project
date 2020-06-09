@@ -12,15 +12,6 @@
       path: /etc/environment
       line: 'YSH_PAGER=more'
       insertbefore: BOF
-<<<<<<< HEAD
-=======
-  - name: line insert
-    lineinfile:
-      path: /etc//bash.bashrc
-      line: 'export VTYSH_PAGER=more'
-      insertbefore: BOF
->>>>>>> 4VMs_Quagga_Ansible
-
 - hosts: VM1
   tasks:
   - name: zebra
@@ -47,6 +38,7 @@
     template: src=ospfd_VM4.txt dest=/etc/quagga/ospfd.conf
 
 - hosts: all  
+  remote_user: root
   tasks:
   - name: line insert
     lineinfile:
@@ -64,9 +56,9 @@
     service:
       name: zebra
       state: started
-  - name: service networking restart
+  - name: Restart network
     service:
-      name: service networking
+      name: network
       state: restarted
   - name: reboot the machine
     reboot:
