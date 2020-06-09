@@ -79,7 +79,7 @@ done
 
 ### ANSIBLE ###
 
-ansible-playbook -i inventory.yaml ./playbooks/install_quagga.yaml
+ansible-playbook ./playbooks/install_quagga.yaml
 
 
 
