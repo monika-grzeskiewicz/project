@@ -1,7 +1,5 @@
 - hosts: all
-  remote_user: root
   tasks: 
-
   - name: Install quagga
     apt: name=quagga state=latest
   - name: line insert
@@ -19,43 +17,33 @@
       path: /etc//bash.bashrc
       line: 'export VTYSH_PAGER=more'
       insertbefore: BOF
-  - name: line insert
-    lineinfile:
-      path: /etc//bash.bashrc
-      line: 'export VTYSH_PAGER=more'
-      insertbefore: BOF
 
 - hosts: VM1
-  remote_user: root
   tasks:
   - name: zebra
     template: src=zebra_VM1.txt dest=/etc/quagga/zebra.conf
   - name: ospfd
     template: src=ospfd_VM1.txt dest=/etc/quagga/ospfd.conf
 - hosts: VM2
-  remote_user: root
   tasks:
   - name: zebra
     template: src=zebra_VM2.txt dest=/etc/quagga/zebra.conf
   - name: ospfd
     template: src=ospfd_VM2.txt dest=/etc/quagga/ospfd.conf
 - hosts: VM3
-  remote_user: root
   tasks:
   - name: zebra
     template: src=zebra_VM3.txt dest=/etc/quagga/zebra.conf
   - name: ospfd
     template: src=ospfd_VM3.txt dest=/etc/quagga/ospfd.conf
 - hosts: VM4
-  remote_user: root
   tasks:
   - name: zebra
     template: src=zebra_VM4.txt dest=/etc/quagga/zebra.conf
   - name: ospfd
     template: src=ospfd_VM4.txt dest=/etc/quagga/ospfd.conf
 
-- hosts: all
-  remote_user: root
+- hosts: all  
   tasks:
   - name: line insert
     lineinfile:
