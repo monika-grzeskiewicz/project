@@ -52,25 +52,39 @@ start)
 ./basis-script.sh create_VM VM3
 ./basis-script.sh create_VM VM4
 
+cd ansible
+
 for i in {1..4}
 do
 uvt-kvm wait VM$i --insecure
-uvt-kvm ssh VM$i 'sudo apt-get install ifupdown'
-uvt-kvm ssh VM$i "sudo chmod  777 /etc/network/interfaces"
-uvt-kvm ssh VM$i " printf '
-auto ens3
-iface ens3 inet static
-    address 192.168.122.$i$i
-up ip route change default via 192.168.122.1'	 >> /etc/network/interfaces"
-
-
-uvt-kvm ssh VM$i sudo reboot
-uvt-kvm wait VM$i --insecure
 done
+sed -i 's/VM1 ansible_host=.* ansible_user/VM1 ansible_host='"$(uvt-kvm ip VM1)"' ansible_user/g' inventory.yaml
+sed -i 's/VM2 ansible_host=.* ansible_user/VM2 ansible_host='"$(uvt-kvm ip VM2)"' ansible_user/g' inventory.yaml
+sed -i 's/VM3 ansible_host=.* ansible_user/VM3 ansible_host='"$(uvt-kvm ip VM3)"' ansible_user/g' inventory.yaml
+sed -i 's/VM4 ansible_host=.* ansible_user/VM4 ansible_host='"$(uvt-kvm ip VM4)"' ansible_user/g' inventory.yaml
 
 
-cd ansible; ansible-playbook ./playbooks/create_VM_interfaces.yaml
 
+#uvt-kvm ssh VM$i 'sudo apt-get install ifupdown'
+#uvt-kvm ssh VM$i "sudo chmod  777 /etc/network/interfaces"
+#uvt-kvm ssh VM$i " printf '
+
+#auto ens3
+#iface ens3 inet static
+#    address 192.168.122.$i$i
+
+#up ip route change default via 192.168.122.1'	 >> /etc/network/interfaces"
+
+
+#uvt-kvm ssh VM$i sudo reboot
+#uvt-kvm wait VM$i --insecure
+
+
+echo "tiiiuuu"
+
+ansible-playbook ./playbooks/create_VM_interfaces.yaml
+
+cd -
 VM_nr=0
 for i in {0..7}
 do
@@ -80,7 +94,7 @@ if [ $a -eq 0 ]
 then
 VM_nr=$(( $VM_nr + 1 ))
 fi
-./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
+ ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
 for i in {1..4}
@@ -89,7 +103,8 @@ do
 ./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
 done
 
-ansible-playbook ./playbooks/install_quagga.yaml
+
+cd ansible; ansible-playbook ./playbooks/install_quagga.yaml
 
 ;;
 

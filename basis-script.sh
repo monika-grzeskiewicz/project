@@ -104,7 +104,6 @@ case $1 in
 	uvt-kvm ssh $2 "sudo touch /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo chmod 777 /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo echo network: {config: disabled}  >> /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
-	uvt-kvm ssh $2 "sudo reboot"
 	;;
   #11
   add_route)
@@ -132,11 +131,7 @@ case $1 in
          uvt-kvm ssh $2 sudo touch /etc/quagga/vtysh.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/zebra.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/ospfd.conf
-<<<<<<< HEAD
 
-=======
-         uvt-kvm ssh $2 sudo touch /etc/quagga/daemons
->>>>>>> cea847ba2255732ac0654261a2b8014005bf5fea
 	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
 
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/ospfd.conf
@@ -148,23 +143,9 @@ case $1 in
          uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/zebra.conf
          uvt-kvm ssh $2  sudo chmod 640 /etc/quagga/vtysh.conf
 
-         uvt-kvm ssh $2  sudo chmod 777 /etc/quagga/daemons
          uvt-kvm ssh $2  sudo chmod 777 /etc/environment
          uvt-kvm ssh $2  sudo chmod 777 /etc/bash.bashrc
 
-<<<<<<< HEAD
-=======
-
-	uvt-kvm ssh $2 sudo printf "'
-	zebra=yes
-	bgpd=no
-	ospfd=yes
-	ospf6d=no
-	ripd=no
-	ripngd=no	'>> /etc/quagga/daemons"
-
-
->>>>>>> cea847ba2255732ac0654261a2b8014005bf5fea
 uvt-kvm ssh $2 "echo 'YSH_PAGER=more' >> /etc/environment"
 uvt-kvm ssh $2 "echo 'export VTYSH_PAGER=more' >> /etc/bash.bashrc"
 uvt-kvm ssh $2 sudo printf "'
