@@ -71,5 +71,4 @@ stop)
 ./basis-script.sh delete_bridge br-2
 ;;
 
-
 esac
