@@ -28,6 +28,8 @@ BRIDGE=(br-1 br-2 br-1 br-3 br-2 br-4 br-3 br-4)
 
 bridge=(br-1 br-2 br-3 br-4)
 
+
+
 case $1 in
 
 start)
@@ -46,24 +48,28 @@ start)
 
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
-uvt-kvm wait VM1 --insecure
-./basis-script.sh create_VM_interface VM1 7
-./basis-script.sh create_VM_interface VM1 8
-
 ./basis-script.sh create_VM VM2
-uvt-kvm wait VM2 --insecure
-./basis-script.sh create_VM_interface VM2 7
-./basis-script.sh create_VM_interface VM2 8
-
 ./basis-script.sh create_VM VM3
-uvt-kvm wait VM3 --insecure
-./basis-script.sh create_VM_interface VM3 7
-./basis-script.sh create_VM_interface VM3 8
-
 ./basis-script.sh create_VM VM4
-uvt-kvm wait VM4 --insecure
-./basis-script.sh create_VM_interface VM4 7
-./basis-script.sh create_VM_interface VM4 8
+
+for i in {1..4}
+do
+uvt-kvm wait VM$i --insecure
+uvt-kvm ssh VM$i 'sudo apt-get install ifupdown'
+uvt-kvm ssh VM$i "sudo chmod  777 /etc/network/interfaces"
+uvt-kvm ssh VM$i " printf '
+auto ens3
+iface ens3 inet static
+    address 192.168.122.$i$i
+up ip route change default via 192.168.122.1'	 >> /etc/network/interfaces"
+
+
+uvt-kvm ssh VM$i sudo reboot
+uvt-kvm wait VM$i --insecure
+done
+
+
+cd ansible; ansible-playbook ./playbooks/create_VM_interfaces.yaml
 
 VM_nr=0
 for i in {0..7}
@@ -79,7 +85,7 @@ done
 
 ### ANSIBLE ###
 
-#ansible-playbook ./playbooks/install_quagga.yaml
+ansible-playbook ./playbooks/install_quagga.yaml
 
 
 

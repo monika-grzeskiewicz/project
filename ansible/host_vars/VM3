@@ -1,3 +1,4 @@
 local_zebra_path: '/home/monika.grzeskiewicz/project/ansible/playbooks/zebra_VM3.txt'
 local_ospfd_path: '/home/monika.grzeskiewicz/project/ansible/playbooks/ospfd_VM3.txt'
+local_interfaces_path: '/home/monika.grzeskiewicz/project/ansible/playbooks/interfaces_VM3.txt'
 
