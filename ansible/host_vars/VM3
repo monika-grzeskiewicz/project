@@ -1,4 +1,9 @@
-local_zebra_path: '~/project/ansible/roles/files/zebra_VM3.txt'
-local_ospfd_path: '~/project/ansible/roles/files/ospfd_VM3.txt'
-local_interfaces_path: '~/project/ansible/roles/files/interfaces_VM3.txt'
+#local_zebra_path: '~/project/ansible/roles/files/zebra_VM3.txt'
+#local_ospfd_path: '~/project/ansible/roles/files/ospfd_VM3.txt'
+#local_interfaces_path: '~/project/ansible/roles/files/interfaces_VM3.txt'
+ip_ens7: '10.10.20.31'
+ip_ens8: '10.10.40.34'
+network_ens7: 10.10.20.0
+network_ens8: 10.10.40.0
+
 

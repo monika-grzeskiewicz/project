@@ -1,0 +1,10 @@
+interface ens7
+ ip address {{ ip_ens7 }}/24
+ ipv6 nd suppress-ra
+interface ens8
+ ip address {{ ip_ens8 }}/24
+ ipv6 nd suppress-ra
+interface lo
+ip forwarding
+line vty
+

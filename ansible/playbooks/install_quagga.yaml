@@ -18,9 +18,13 @@
       line: 'export VTYSH_PAGER=more'
       insertbefore: BOF
   - name: create /etc/quagga/zebra.conf
-    template: src="{{local_zebra_path}}" dest=/etc/quagga/zebra.conf
-  - name: create /etc/quagga/ospfd.conf
-    template: src="{{local_ospfd_path}}" dest=/etc/quagga/ospfd.conf
+    template:
+      src: '~/project/ansible/templates/zebra.j2'
+      dest: /etc/quagga/zebra.conf
+  - name: create '/etc/quagga/ospfd.conf'
+    template:
+      src: '~/project/ansible/templates/ospfd.j2'
+      dest: '/etc/quagga/ospfd.conf'
   - name: line insert
     lineinfile:
       path: '/etc/netplan/50-cloud-init.yaml'

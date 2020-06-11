@@ -1,0 +1,12 @@
+interface ens3
+interface ens7
+interface ens8
+interface lo
+router ospf
+ passive-interface ens3
+ network {{ network_ens7 }}/24 area 0.0.0.0
+ network {{ network_ens8 }}/24 area 0.0.0.0
+ line vty
+
+
+

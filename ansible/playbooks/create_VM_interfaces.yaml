@@ -5,5 +5,5 @@
     - name: install ifupdown
       apt: name=ifupdown
     - name: create /etc/network/interfaces
-      template: src="{{local_interfaces_path}}" dest=/etc/network/interfaces
+      template: src="~/project/ansible/templates/interfaces.j2" dest=/etc/network/interfaces
 
