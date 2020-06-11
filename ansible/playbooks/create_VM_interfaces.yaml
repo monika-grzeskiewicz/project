@@ -1,0 +1,9 @@
+- name: Create VM interface 
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: install ifupdown
+      apt: name=ifupdown
+    - name: create /etc/network/interfaces
+      template: src="{{local_interfaces_path}}" dest=/etc/network/interfaces
+

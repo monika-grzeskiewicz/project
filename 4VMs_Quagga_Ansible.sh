@@ -28,6 +28,8 @@ BRIDGE=(br-1 br-2 br-1 br-3 br-2 br-4 br-3 br-4)
 
 bridge=(br-1 br-2 br-3 br-4)
 
+#####################################################################################
+
 case $1 in
 
 start)
@@ -46,25 +48,23 @@ start)
 
 #       create 4 VMs
 ./basis-script.sh create_VM VM1
-uvt-kvm wait VM1 --insecure
-./basis-script.sh create_VM_interface VM1 7
-./basis-script.sh create_VM_interface VM1 8
-
 ./basis-script.sh create_VM VM2
-uvt-kvm wait VM2 --insecure
-./basis-script.sh create_VM_interface VM2 7
-./basis-script.sh create_VM_interface VM2 8
-
 ./basis-script.sh create_VM VM3
-uvt-kvm wait VM3 --insecure
-./basis-script.sh create_VM_interface VM3 7
-./basis-script.sh create_VM_interface VM3 8
-
 ./basis-script.sh create_VM VM4
-uvt-kvm wait VM4 --insecure
-./basis-script.sh create_VM_interface VM4 7
-./basis-script.sh create_VM_interface VM4 8
 
+sleep 40
+
+cd ansible
+sed -i 's/VM1 ansible_host=.* ansible_user/VM1 ansible_host='"$(uvt-kvm ip VM1)"' ansible_user/g' inventory.yaml
+sed -i 's/VM2 ansible_host=.* ansible_user/VM2 ansible_host='"$(uvt-kvm ip VM2)"' ansible_user/g' inventory.yaml
+sed -i 's/VM3 ansible_host=.* ansible_user/VM3 ansible_host='"$(uvt-kvm ip VM3)"' ansible_user/g' inventory.yaml
+sed -i 's/VM4 ansible_host=.* ansible_user/VM4 ansible_host='"$(uvt-kvm ip VM4)"' ansible_user/g' inventory.yaml
+
+
+ansible-playbook ./playbooks/create_VM_interfaces.yaml
+ansible-playbook ./playbooks/install_quagga.yaml
+
+cd ..
 VM_nr=0
 for i in {0..7}
 do
@@ -74,16 +74,13 @@ if [ $a -eq 0 ]
 then
 VM_nr=$(( $VM_nr + 1 ))
 fi
-./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
+ ./basis-script.sh attach_interface_to_the_bridge VM${VM_nr} ${BRIDGE[i]} ${MAC[i]}
 done
 
 for i in {1..4}
 do
-./basis-script.sh enable_ip_forwarding VM${i}
-./basis-script.sh disable_cloud-inits_network_configuration_capabilities VM${i}
+echo "VM$i IP: " +  $(uvt-kvm ip VM$i) 
 done
-
-ansible-playbook ./playbooks/install_quagga.yaml
 
 ;;
 

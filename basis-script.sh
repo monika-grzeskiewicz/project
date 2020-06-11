@@ -104,7 +104,6 @@ case $1 in
 	uvt-kvm ssh $2 "sudo touch /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo chmod 777 /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
 	uvt-kvm ssh $2 "sudo echo network: {config: disabled}  >> /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg"
-	uvt-kvm ssh $2 "sudo reboot"
 	;;
   #11
   add_route)
@@ -132,7 +131,7 @@ case $1 in
          uvt-kvm ssh $2 sudo touch /etc/quagga/vtysh.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/zebra.conf
          uvt-kvm ssh $2 sudo touch /etc/quagga/ospfd.conf
-         uvt-kvm ssh $2 sudo touch /etc/quagga/daemons
+
 	 uvt-kvm ssh $2  sudo cp /usr/share/doc/quagga-core/examples/vtysh.conf.sample /etc/quagga/vtysh.conf
 
          uvt-kvm ssh $2  sudo chown quagga:quagga /etc/quagga/ospfd.conf

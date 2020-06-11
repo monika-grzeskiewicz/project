@@ -1,0 +1,14 @@
+auto ens7
+iface ens7 inet dhcp
+
+auto lo
+iface lo inet loopback
+
+auto ens3
+iface ens3 inet dhcp
+
+up ip route change default via 192.168.122.1
+
+auto ens8
+iface ens8 inet dhcp
+

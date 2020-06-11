@@ -1,0 +1,4 @@
+local_zebra_path: '/home/monika.grzeskiewicz/project/ansible/playbooks/zebra_VM2.txt'
+local_ospfd_path: '/home/monika.grzeskiewicz/project/ansible/playbooks/ospfd_VM2.txt'
+local_interfaces_path: '/home/monika.grzeskiewicz/project/ansible/playbooks/interfaces_VM2.txt'
+

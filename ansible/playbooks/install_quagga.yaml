@@ -12,6 +12,7 @@
       path: /etc/environment
       line: 'YSH_PAGER=more'
       insertbefore: BOF
+<<<<<<< HEAD
 - hosts: VM1
   tasks:
   - name: zebra
@@ -40,13 +41,28 @@
 - hosts: all  
   remote_user: root
   tasks:
+=======
   - name: line insert
     lineinfile:
-      path: /etc/netplan/50-cloud-init.yaml
+      path: /etc//bash.bashrc
+      line: 'export VTYSH_PAGER=more'
+      insertbefore: BOF
+  - name: create /etc/quagga/zebra.conf
+    template: src="{{local_zebra_path}}" dest=/etc/quagga/zebra.conf
+  - name: create /etc/quagga/ospfd.conf
+    template: src="{{local_ospfd_path}}" dest=/etc/quagga/ospfd.conf
+>>>>>>> 4VMs_Quagga_Ansible
+  - name: line insert
+    lineinfile:
+      path: '/etc/netplan/50-cloud-init.yaml'
       line: '.disable'
+  - name: Touch a file
+    file:
+      path: '/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg'
+      state: touch
   - name: line insert
     lineinfile:
-      path: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+      path: '/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg'
       line: 'network: {config: disabled} '
   - name: Start ospfd
     service:
@@ -56,9 +72,12 @@
     service:
       name: zebra
       state: started
+<<<<<<< HEAD
   - name: Restart network
     service:
       name: network
       state: restarted
+=======
+>>>>>>> 4VMs_Quagga_Ansible
   - name: reboot the machine
     reboot:
