@@ -55,10 +55,10 @@ start)
 sleep 40
 
 cd ansible
-sed -i 's/VM1 ansible_host=.* ansible_user/VM1 ansible_host='"$(uvt-kvm ip VM1)"' ansible_user/g' inventory.yaml
-sed -i 's/VM2 ansible_host=.* ansible_user/VM2 ansible_host='"$(uvt-kvm ip VM2)"' ansible_user/g' inventory.yaml
-sed -i 's/VM3 ansible_host=.* ansible_user/VM3 ansible_host='"$(uvt-kvm ip VM3)"' ansible_user/g' inventory.yaml
-sed -i 's/VM4 ansible_host=.* ansible_user/VM4 ansible_host='"$(uvt-kvm ip VM4)"' ansible_user/g' inventory.yaml
+sed -i 's/VM1 ansible_host=.* ansible_user/VM1 ansible_host='"$(uvt-kvm ip VM1)"' ansible_user/g' inventory
+sed -i 's/VM2 ansible_host=.* ansible_user/VM2 ansible_host='"$(uvt-kvm ip VM2)"' ansible_user/g' inventory
+sed -i 's/VM3 ansible_host=.* ansible_user/VM3 ansible_host='"$(uvt-kvm ip VM3)"' ansible_user/g' inventory
+sed -i 's/VM4 ansible_host=.* ansible_user/VM4 ansible_host='"$(uvt-kvm ip VM4)"' ansible_user/g' inventory
 
 
 ansible-playbook ./playbooks/create_VM_interfaces.yaml

@@ -2,27 +2,26 @@
   hosts: ubuntu
   gather_facts: no
   pre_tasks:
-    - name: Kill all apt process and unlock lock apt apt-get.
-      raw: killall apt apt-get
-      ignore_errors: yes
-    - name: Remove /var/lib/apt/lists/lock
-      raw: rm /var/lib/apt/lists/lock
-      ignore_errors: yes
-    - name: Remove /var/cache/apt/archives/lock
-      raw: rm /var/cache/apt/archives/lock
-      ignore_errors: yes
-    - name: Remove /var/lib/dpkg/lock
-      raw: rm /var/lib/dpkg/lock
-      ignore_errors: yes
+    -  name: Remove file  
+       file:
+         path: /var/lib/apt/lists/lock
+         state: absent      
+    -  name: Remove file  
+       file:
+        path: /var/cache/apt/archives/lock
+        state: absent
+    -  name: Remove file  
+       file:
+        path: /var/lib/dpkg/lock
+        state: absent
     - name: Reconfigure dpkg
       raw: dpkg --configure -a
       ignore_errors: yes
     - name: Update package
       raw: apt-get update
     - name: Install needed package
-      raw: "apt-get install {{ item }} -y"
-      with_items:
-        - python2.7
-        - python-pip
-    - name: Update pip
-      raw: pip install -U pip  
+      raw: "apt-get install python2.7 -y"
+    - name: pip
+      pip:
+        name: pip
+      
