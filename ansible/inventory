@@ -1,0 +1,12 @@
+VM1 ansible_host=192.168.122.237 ansible_user=ubuntu ansible_sudo=yes ansible_become=yes
+VM2 ansible_host=192.168.122.243 ansible_user=ubuntu ansible_sudo=yes ansible_become=yes
+VM3 ansible_host=192.168.122.201 ansible_user=ubuntu ansible_sudo=yes ansible_become=yes
+VM4 ansible_host=192.168.122.33 ansible_user=ubuntu ansible_sudo=yes ansible_become=yes
+
+[ubuntu]
+VM1
+VM2
+VM3
+VM4
+
+
