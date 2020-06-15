@@ -1,5 +1,5 @@
 
-- hosts: all
+- hosts: VM1
   roles:
-    - templates
+    - { role: templates }
  

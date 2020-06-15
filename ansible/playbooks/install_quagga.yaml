@@ -14,16 +14,16 @@
       insertbefore: BOF
   - name: line insert
     lineinfile:
-      path: /etc//bash.bashrc
+      path: /etc/bash.bashrc
       line: 'export VTYSH_PAGER=more'
       insertbefore: BOF
   - name: create /etc/quagga/zebra.conf
     template:
-      src: '~/project/ansible/templates/zebra.j2'
+      src: 'zebra.j2'
       dest: /etc/quagga/zebra.conf
   - name: create '/etc/quagga/ospfd.conf'
     template:
-      src: '~/project/ansible/templates/ospfd.j2'
+      src: 'ospfd.j2'
       dest: '/etc/quagga/ospfd.conf'
   - name: line insert
     lineinfile:
