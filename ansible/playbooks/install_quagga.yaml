@@ -45,5 +45,9 @@
     service:
       name: zebra
       state: started
+  - name: Restarting Network
+    service:
+      name: networking
+      state: restarted
   - name: reboot the machine
     reboot:
