@@ -61,8 +61,8 @@ sed -i 's/VM3 ansible_host=.* ansible_user/VM3 ansible_host='"$(uvt-kvm ip VM3)"
 sed -i 's/VM4 ansible_host=.* ansible_user/VM4 ansible_host='"$(uvt-kvm ip VM4)"' ansible_user/g' inventory
 
 
-ansible-playbook ./playbooks/create_VM_interfaces.yaml
-ansible-playbook ./playbooks/install_quagga.yaml
+ansible-playbook ./create_VM_interfaces.yaml
+ansible-playbook ./install_quagga.yaml
 
 cd ..
 VM_nr=0

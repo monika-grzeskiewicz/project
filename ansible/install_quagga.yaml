@@ -37,6 +37,10 @@
     lineinfile:
       path: '/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg'
       line: 'network: {config: disabled} '
+  - name: Restarting Network
+    service:
+      name: networking
+      state: restarted
   - name: Start ospfd
     service:
       name: ospfd
@@ -45,9 +49,5 @@
     service:
       name: zebra
       state: started
-  - name: Restarting Network
-    service:
-      name: networking
-      state: restarted
   - name: reboot the machine
     reboot:

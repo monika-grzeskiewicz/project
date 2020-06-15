@@ -1,5 +1,0 @@
-
-- hosts: VM1
-  roles:
-    - { role: templates }
- 
