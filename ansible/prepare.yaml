@@ -14,14 +14,10 @@
        file:
         path: /var/lib/dpkg/lock
         state: absent
-    - name: Reconfigure dpkg
-      raw: dpkg --configure -a
-      ignore_errors: yes
-    - name: Update package
-      raw: apt-get update
-    - name: Install needed package
-      raw: "apt-get install python2.7 -y"
-    - name: pip
-      pip:
-        name: pip
+    - name: Upgrade all packages to the latest version
+      apt:
+        name: "*"
+    - name: python 
+      apt:
+        name: python3
       
